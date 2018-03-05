@@ -14,7 +14,7 @@ payload = cfg.get_parameters()
 def requests_retry_session(
     retries=5,   # repeats 5 times
     backoff_factor=0.5,  # time between calls start with 5 seconds, time increases after next call 
-    status_forcelist=(500, 502, 504),
+    status_forcelist=(500, 502, 503, 504),
     session=None,
 ):
     session = session or requests.Session()
@@ -42,7 +42,7 @@ result_of_first_api_call = first_api_call.json()
 query_id = str(result_of_first_api_call['query_id'])
 
 # second API call, repeats every 5 min (300 vtr)
-pa1= {'host': payload['host'], 'apikey': payload['apikey'], 'query_id': query_id}
+pa1= {'host': payload['host'], 'apikey': payload['#apikey'], 'query_id': query_id}
 
 t0 = time.time()
 try:
@@ -52,6 +52,7 @@ try:
     )
 except Exception as x:
     print('It failed 😞', x.__class__.__name__)
+    sys.exit()
 else:
     print('It eventually worked', second_api_call.status_code)
 finally:
