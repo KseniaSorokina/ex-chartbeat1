@@ -9,6 +9,7 @@ from keboola import docker
 
 cfg = docker.Config('/data/')
 payload = cfg.get_parameters()
+print(payload)
 
 
 def requests_retry_session(
@@ -31,11 +32,11 @@ def requests_retry_session(
     return session
 
 # first API call
-
-first_api_call = requests.get('http://api.chartbeat.com/query/v2/submit/page/?', params=payload)
+first_api_call = requests.get('http://api.chartbeat.com/query/v2/submit/page/?', params=payload, timeout=300)
 status_code = first_api_call.status_code
 if status_code != 200:
     print('Error, status code of first call: ' + str(status_code))
+    quit()
 
 # generate query_id as a result of first API call
 result_of_first_api_call = first_api_call.json()
