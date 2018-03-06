@@ -8,7 +8,6 @@ from keboola import docker
 
 cfg = docker.Config('/data/')
 configuration = cfg.get_parameters()
-configuration = cfg.get_image_parameters()
 output_tables = cfg.get_expected_output_tables()
 print(configuration)
 print(output_tables)
