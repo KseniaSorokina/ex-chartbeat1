@@ -9,7 +9,7 @@ from keboola import docker
 cfg = docker.Config('/data/')
 configuration = cfg.get_parameters()
 print(configuration)
-
+print(cfg.get_expected_output_tables())
 outName = cfg.get_expected_output_tables()[0]['full_path']
 
 payload = {
