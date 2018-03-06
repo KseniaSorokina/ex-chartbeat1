@@ -11,7 +11,7 @@ configuration = cfg.get_parameters()['image_parameters']
 output_table = cfg.get_parameters()['storage']['output']['tables'][0]
 print(configuration)
 print(output_table)
-outName = output_table['source']
+outFullName = '/data/out/tables/' + str(output_table['source'])
 
 payload = {
     'host': configuration['host'],
@@ -83,6 +83,6 @@ result_of_second_api_call = second_api_call.text
 
 
 # result of second API call as CSV 
-file = open(outName,'w')  
+file = open(outFullName,'w')  
 file.write(result_of_second_api_call)
 file.close()
