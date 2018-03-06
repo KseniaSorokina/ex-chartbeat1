@@ -7,12 +7,11 @@ import keboola
 from keboola import docker
 
 cfg = docker.Config('/data/')
-configuration = cfg.get_parameters()
-output_tables = cfg.get_expected_output_tables()
+configuration = cfg.get_parameters()['image_parameters']
+output_table = cfg.get_parameters()['storage']['output']['tables'][0]
 print(configuration)
-print(output_tables)
-
-outName = cfg.get_expected_output_tables()[0]['full_path']
+print(output_table)
+outName = output_table['source']
 
 payload = {
     'host': configuration['host'],
