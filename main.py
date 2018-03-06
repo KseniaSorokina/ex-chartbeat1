@@ -10,6 +10,8 @@ cfg = docker.Config('/data/')
 configuration = cfg.get_parameters()
 print(configuration)
 
+outName = cfg.get_expected_output_tables()[0]['full_path']
+
 payload = {
     'host': configuration['host'],
     'apikey': configuration['#apikey'],
@@ -80,6 +82,6 @@ result_of_second_api_call = second_api_call.text
 
 
 # result of second API call as CSV 
-file = open('/data/out/tables/ex_chartbeat.csv','w')  
+file = open(outName,'w')  
 file.write(result_of_second_api_call)
 file.close()
