@@ -55,7 +55,7 @@ if status_code != 200:
 # generate query_id as a result of first API call
 result_of_first_api_call = first_api_call.json()
 query_id = str(result_of_first_api_call['query_id'])
-print(query_id)
+print("query_id: ",  query_id)
 
 # second API call, repeats every 5 min (300 vtr)
 pa1= {'host': payload['host'], 'apikey': payload['apikey'], 'query_id': query_id}
