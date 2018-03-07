@@ -8,7 +8,6 @@ from keboola import docker
 
 cfg = docker.Config('/data/')
 configuration = cfg.get_parameters()
-print(configuration)
 outFullName = '/data/out/tables/ex_chartbeat.csv'
 outDestination = 'ex_chartbeat'
 
