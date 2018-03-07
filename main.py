@@ -7,15 +7,10 @@ import keboola
 from keboola import docker
 
 cfg = docker.Config('/data/')
-configuration = cfg.get_parameters()['image_parameters']
-output_table = cfg.get_parameters()['storage']['output']['tables'][0]
-print(configuration)
-print(output_table)
-
-outFullName = '/data/out/tables/' + str(output_table['source'])
-outDestination = output_table['destination']
-pk =  output_table['primary_key']
-cfg.write_table_manifest(outFullName, destination=outDestination, primary_key=pk)
+configuration = cfg.get_patameters()
+outFullName = '/data/out/tables/ex_chartbeat.csv'
+outDestination = 'ex_chartbeat'
+cfg.write_table_manifest(outFullName, destination=outDestination, primary_key=['tz_time', 'path'], incremental=True)
 
 payload = {
     'host': configuration['host'],
