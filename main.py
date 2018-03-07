@@ -8,10 +8,9 @@ from keboola import docker
 
 cfg = docker.Config('/data/')
 configuration = cfg.get_parameters()
+print(configuration)
 outFullName = '/data/out/tables/ex_chartbeat.csv'
 outDestination = 'ex_chartbeat'
-pk = configuration['primary_key']
-cfg.write_table_manifest(outFullName, destination=outDestination, primary_key=pk, incremental=True)
 
 payload = {
     'host': configuration['host'],
@@ -21,8 +20,12 @@ payload = {
     'date_range': configuration['date_range'],
     'metrics': configuration['metrics'],
     'subdomain': configuration['subdomain'],
-    'dimensions': configuration['dimensions']
+    'dimensions': configuration['dimensions'],
+    'primary_key': configuration['primary_key']
 }
+
+pk = payload['primary_key']
+cfg.write_table_manifest(outFullName, destination=outDestination, primary_key=pk, incremental=True)
 
 def requests_retry_session(
     retries=5,   # repeats 5 times
@@ -53,6 +56,7 @@ if status_code != 200:
 # generate query_id as a result of first API call
 result_of_first_api_call = first_api_call.json()
 query_id = str(result_of_first_api_call['query_id'])
+print(query_id)
 
 # second API call, repeats every 5 min (300 vtr)
 pa1= {'host': payload['host'], 'apikey': payload['apikey'], 'query_id': query_id}
