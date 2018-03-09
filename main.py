@@ -46,7 +46,7 @@ def requests_retry_session(
     return session
 
 # first API call
-first_api_call = requests.get('http://api.chartbeat.com/query/v2/submit/page/?', params=payload, timeout=300)
+first_api_call = requests.get('http://api.chartbeat.com/query/v2/submit/page/?', params=payload, timeout=30)
 status_code = first_api_call.status_code
 if status_code != 200:
     print('Error, status code of first call: ' + str(status_code))
@@ -57,18 +57,17 @@ result_of_first_api_call = first_api_call.json()
 query_id = str(result_of_first_api_call['query_id'])
 print("query_id: ",  query_id)
 
-# second API call, repeats every 5 min (300 vtr)
+# second API call, repeats every 30 vtr
 pa1= {'host': payload['host'], 'apikey': payload['apikey'], 'query_id': query_id}
 
 t0 = time.time()
 try:
     second_api_call = requests_retry_session().get(
     'http://api.chartbeat.com/query/v2/fetch/?', params=pa1,  
-    timeout=300
+    timeout=30
     )
 except Exception as x:
     print('It failed 😞', x.__class__.__name__)
-    exit(2)
 else:
     print('It eventually worked', second_api_call.status_code)
 finally:
