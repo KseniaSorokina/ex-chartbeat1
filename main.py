@@ -46,7 +46,7 @@ def requests_retry_session(
     return session
 
 # first API call
-first_api_call = requests.get('http://api.chartbeat.com/query/v2/submit/page/?', params=payload, timeout=30)
+first_api_call = requests.get('http://api.chartbeat.com/query/v2/submit/page/?', params=payload)
 status_code = first_api_call.status_code
 if status_code != 200:
     print('Error, status code of first call: ' + str(status_code))
@@ -76,9 +76,7 @@ finally:
 
 # if last retry failed - exit the program	
 status_code = second_api_call.status_code
-if status_code != 200:
-	print('Error, second response failed. Status code: ' + str(status_code))
-	exit(2)
+print(status_code)
 
 # result of second API call as text object 
 result_of_second_api_call = second_api_call.text
