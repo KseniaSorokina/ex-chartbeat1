@@ -27,9 +27,9 @@ pk = payload['primary_key']
 cfg.write_table_manifest(outFullName, destination=outDestination, primary_key=pk, incremental=True)
 
 def requests_retry_session(
-    retries=5,   # repeats 5 times
-    backoff_factor=0.5,  # time between calls start with 5 seconds, time increases after next call 
-    status_forcelist=(500, 502, 503, 504),
+    retries=100,   # repeats times
+    backoff_factor=0.1,  # time between calls, increases after next call 
+    status_forcelist=(500, 502, 503, 504, 598),
     session=None,
 ):
     session = session or requests.Session()
@@ -64,8 +64,9 @@ t0 = time.time()
 try:
     second_api_call = requests_retry_session().get(
     'http://api.chartbeat.com/query/v2/fetch/?', params=pa1,  
-    timeout=30
+    timeout=60
     )
+    print(second_api_call)
 except Exception as x:
     print('It failed 😞', x.__class__.__name__)
 else:
@@ -75,6 +76,10 @@ finally:
     print('Took', t1 - t0, 'seconds')
 
 # if last retry failed - exit the program	
+if not second_api_call:
+    print('all retries failed. Exiting the program')
+    exit(2)
+
 status_code = second_api_call.status_code
 print(status_code)
 
