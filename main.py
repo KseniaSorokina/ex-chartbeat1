@@ -64,7 +64,7 @@ t0 = time.time()
 try:
     second_api_call = requests_retry_session().get(
     'http://api.chartbeat.com/query/v2/fetch/?', params=pa1,  
-    timeout=60
+    timeout=180
     )
     print(second_api_call)
 except Exception as x:
