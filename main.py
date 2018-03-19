@@ -85,16 +85,16 @@ try:
     )
     print(second_api_call)
 except Exception as x:
-    print('It failed 😞', x.__class__.__name__)
+    print('It failed 😞 (second_api_call)', x.__class__.__name__)
 else:
-    print('It eventually worked', second_api_call.status_code)
+    print('It eventually worked (second_api_call)', second_api_call.status_code)
 finally:
     t1 = time.time()
     print('Took', t1 - t0, 'seconds')
 
 # if last retry failed - exit the program	
 if not second_api_call:
-    print('all retries failed. Exiting the program')
+    print('all retries failed (second_api_call). Exiting the program')
     exit(2)
 
 status_code = second_api_call.status_code
