@@ -29,7 +29,7 @@ cfg.write_table_manifest(outFullName, destination=outDestination, primary_key=pk
 def requests_retry_session(
     retries=100,   # repeats times
     backoff_factor=0.1,  # time between calls, increases after next call 
-    status_forcelist=(500, 502, 503, 504, 598),
+    status_forcelist=(400, 402, 403, 404, 405, 500, 502, 503, 504, 598),
     session=None,
 ):
     session = session or requests.Session()
