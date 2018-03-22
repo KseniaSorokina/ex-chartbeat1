@@ -20,6 +20,9 @@ payload = {
     'metrics': configuration['metrics'],
     'subdomain': configuration['subdomain'],
     'dimensions': configuration['dimensions'],
+    'tz': configuration['tz'],
+    'sort_column': configuration['sort_column'],
+    'sort_order': configuration['sort_order'],
     'primary_key': configuration['primary_key']
 }
 
